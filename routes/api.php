@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+//controllers
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//APIs for Authentication
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+    });
 });
+
+//APIs for Attendance management (Provide down below)
+//Apply middleware for authentication
+//Create a controller for Attendance management
+
+// Route::middleware('auth:sanctum')
+//     ->controller(AttendanceController::class)
+//     ->group(['prefix' => 'attendance'], function () {
+//         //Routes here
+//         //example
+//         //Route::get('/attendance, 'allAttendances');
+//     });
