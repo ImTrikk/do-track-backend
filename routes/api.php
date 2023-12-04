@@ -34,4 +34,5 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('/attendance/attendance-by-rendered-hours-college/{id}', 'getAttendanceByRenderedHourWithCollege');
     // api router for getting the students with no time_in and time_out
     Route::get('/attendance/attendance-by-no-timestamps/{id}', 'getStudentNoTimeInOut');
+    Route::get('/attendance/getStudentAttendece/{id}', 'getStudentAttendece');
 });

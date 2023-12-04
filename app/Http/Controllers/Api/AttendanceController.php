@@ -245,7 +245,7 @@ class AttendanceController extends Controller
             $timeIn = new \DateTime($attendance->time_in);
             $timeOut = new \DateTime($attendance->time_out);
             $interval = $timeIn->diff($timeOut);
-            $totalHours = $interval->h + $interval->i / 60; 
+            $totalHours = $interval->h + $interval->i / 60;
             // Calculate hours including minutes
 
             // Update total_hours in the database
@@ -258,6 +258,39 @@ class AttendanceController extends Controller
         }
     }
 
+    //retrieve attendences by program   
+    public function getStudentAttendece(string $id)
+    {
+        $response = DB::table('attendances')
+            ->select('students.first_name', 'students.last_name', 'programs.program_name')
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->where('programs.program_id', '=', $id)
+            ->where('time_in', '!=', NULL)
+            ->where('time_out', '!=', NULL)
+            ->get();
+
+        // Check if there are results
+        if ($response->isEmpty()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => "No attendances in the program: $id"
+                ],
+                404
+            );
+        }
+
+        // Return the results
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => "Retrieved student attendances in the program: $id",
+                'data' => $response
+            ],
+            200
+        );
+    }
 
 
     public function store(AttendanceRequests $request)
