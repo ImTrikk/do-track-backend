@@ -290,7 +290,7 @@ class AttendanceController extends Controller
                 'students.last_name',
                 'attendances.time_in',
                 'attendances.time_out',
-                'programs.program_name'                
+                'programs.program_name'
             )
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
@@ -320,6 +320,51 @@ class AttendanceController extends Controller
             200
         );
     }
+
+
+    public function getCollegeInfo()
+    {
+        $response = DB::table('attendances')
+            ->select(
+                'colleges.college_name',
+                DB::raw('count(students.student_id) as total_population'),
+                DB::raw('count(CASE WHEN attendances.total_hours >= 3 THEN students.student_id END) as attendees')
+            )
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
+            ->groupBy('colleges.college_name')
+            ->get();
+
+        // Check if there are results
+        if ($response->isEmpty()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => "No data set yet"
+                ],
+                404
+            );
+        }
+
+        // Calculate the percentage and add it to the response
+        $attendeesPercentage = $response->map(function ($item) {
+            $item->percentage = $item->attendees / $item->total_population * 100;
+            return $item;
+        });
+
+        // Return the results with the percentage
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => "Retrieved colleges and information",
+                'data' => $attendeesPercentage
+            ],
+            200
+        );
+    }
+
+
 
 
     public function store(AttendanceRequests $request)

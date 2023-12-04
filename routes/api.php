@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // attendance api routes
 Route::controller(AttendanceController::class)->group(function () {
+    Route::get('/attendance/college-info', 'getCollegeInfo');
     Route::post('/attendance/time_in', 'timeIn');
     Route::post('/attendance/time_out', 'timeOut');
     // api router for getting the students, filtered by college_id
