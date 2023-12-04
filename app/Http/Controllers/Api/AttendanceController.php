@@ -18,12 +18,18 @@ class AttendanceController extends Controller
         // Use DB::table for a query builder instance
         $response = DB::table('attendances')
             ->select(
+                'students.student_id',
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'attendances.time_in',
                 'attendances.time_out',
-                'attendances.total_hours'
+                'attendances.total_hours',
+                'programs.program_name',
+                'colleges.college_name',
+                'admins.first_name as admin_first_name',
+                'admins.last_name as admin_last_name',
             )
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
@@ -62,8 +68,12 @@ class AttendanceController extends Controller
                 'students.last_name as student_last_name',
                 'attendances.time_in',
                 'attendances.time_out',
-                'attendances.total_hours'
+                'attendances.total_hours',
+                'programs.program_name',
+                'admins.first_name as admin_first_name',
+                'admins.last_name as admin_last_name',
             )
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('programs.program_id', '=', $id)
@@ -96,13 +106,19 @@ class AttendanceController extends Controller
     {
         $response = DB::table('attendances')
             ->select(
+                'students.student_id',
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'attendances.time_in',
                 'attendances.time_out',
-                'attendances.total_hours'
+                'attendances.total_hours',
+                'programs.program_name',
+                'admins.first_name as admin_first_name',
+                'admins.last_name as admin_last_name',
             )
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('attendances.total_hours', '>=', 3.00)
             ->get();
 
@@ -134,13 +150,18 @@ class AttendanceController extends Controller
     {
         $response = DB::table('attendances')
             ->select(
+                'students.student_id',
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'attendances.time_in',
                 'attendances.time_out',
                 'attendances.total_hours',
-                'colleges.college_name'
+                'programs.program_name',
+                'colleges.college_name',
+                'admins.first_name as admin_first_name',
+                'admins.first_name as admin_last_name',
             )
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
@@ -176,6 +197,7 @@ class AttendanceController extends Controller
     {
         $response = DB::table('attendances')
             ->select(
+                'students.student_id',
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'attendances.time_in',
