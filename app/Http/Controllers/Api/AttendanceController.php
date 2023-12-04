@@ -284,7 +284,14 @@ class AttendanceController extends Controller
     public function getStudentAttendece(string $id)
     {
         $response = DB::table('attendances')
-            ->select('students.first_name', 'students.last_name', 'programs.program_name')
+            ->select(
+                'students.student_id',
+                'students.first_name',
+                'students.last_name',
+                'attendances.time_in',
+                'attendances.time_out',
+                'programs.program_name'                
+            )
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('programs.program_id', '=', $id)
