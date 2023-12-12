@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AttendanceController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //controllers
@@ -26,14 +28,20 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-//APIs for Attendance management (Provide down below)
-//Apply middleware for authentication
-//Create a controller for Attendance management
-
-// Route::middleware('auth:sanctum')
-//     ->controller(AttendanceController::class)
-//     ->group(['prefix' => 'attendance'], function () {
-//         //Routes here
-//         //example
-//         //Route::get('/attendance, 'allAttendances');
-//     });
+// attendance api routes
+Route::controller(AttendanceController::class)->group(function () {
+    Route::get('/attendance/college-info', 'getCollegeInfo');
+    Route::post('/attendance/time_in', 'timeIn');
+    Route::post('/attendance/time_out', 'timeOut');
+    // api router for getting the students, filtered by college_id
+    Route::get('/attendance/attendance-by-college/{id}', 'getAttendanceByCollege');
+    // api router for getting the students, filtered by program_id
+    Route::get('/attendance/attendance-by-program/{id}', 'getAttendanceByProgram');
+    // api router for getting the students with completed rendered hours  (3hours)
+    Route::get('/attendance/attendance-by-rendered-hours', 'getAttendanceByRenderedHour');
+    // api router for getting the students with completed rendered hours  (3hours), filteered with college_id
+    Route::get('/attendance/attendance-by-rendered-hours-college/{id}', 'getAttendanceByRenderedHourWithCollege');
+    // api router for getting the students with no time_in and time_out
+    Route::get('/attendance/attendance-by-no-timestamps/{id}', 'getStudentNoTimeInOut');
+    Route::get('/attendance/getStudentAttendece/{id}', 'getStudentAttendece');
+});
