@@ -14,14 +14,13 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:admins,email',
+            'email' => 'required',
             'password' => 'required|min:8',
-            'admin_id' => 'required|exists:admins,admin_id',
-            'first_name' => 'required|exists:admins,first_name',
-            'last_name' => 'required|exists:admins,last_name',
-            'password' => 'required|exists:admins,password|min:12',
-            'college_id' => 'required|exists:admins,college_id',
-            'position' => 'required|exists:admins,position',
+            'admin_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'college_id' => 'required',
+            'position' => 'required',
         ]);
 
         $admin = Admins::create([
@@ -31,6 +30,7 @@ class AuthController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'college_id' => $request->college_id,
+            'position' => $request->position
         ]);
 
         if ($admin->save()) {
@@ -72,11 +72,10 @@ class AuthController extends Controller
             );
         }
 
-        $password = request(['email', 'password']);
+        $credentials = request(['email', 'password']);
 
         if (
-            !Auth::attempt($password) ||
-            !Hash::check($request->password, $admin->password)
+            !Auth::attempt($credentials)
         ) {
             return response()->json(
                 [

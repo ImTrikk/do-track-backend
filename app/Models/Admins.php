@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenicatableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Admins extends Model
+class Admins extends Model implements Authenticatable
 {
+
+    use AuthenicatableTrait, HasFactory, HasApiTokens, Notifiable;
+
     protected $primaryKey = 'admin_id';
     protected $guarded = [];
 
@@ -22,5 +29,8 @@ class Admins extends Model
         return $this->belongsTo(Colleges::class, 'college_id', 'college_id');
     }
 
-    use HasFactory;
+    public function getAuthIdentifierName()
+    {
+        return 'admin_id';
+    }
 }
