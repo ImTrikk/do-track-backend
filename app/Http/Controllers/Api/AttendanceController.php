@@ -35,7 +35,6 @@ class AttendanceController extends Controller
             ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
             ->where('colleges.college_id', '=', $id)
             ->get();
-
         // Check if there are results
         if ($response->isEmpty()) {
             return response()->json(
@@ -100,7 +99,6 @@ class AttendanceController extends Controller
             200
         );
     }
-
     //getting the attendance data by filtering total_hours as rendered hours for equal or more than 3 hours 
     public function getAttendanceByRenderedHour()
     {
@@ -121,7 +119,6 @@ class AttendanceController extends Controller
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('attendances.total_hours', '>=', 3.00)
             ->get();
-
         // Check if there are results
         if ($response->isEmpty()) {
             return response()->json(
@@ -132,7 +129,6 @@ class AttendanceController extends Controller
                 404
             );
         }
-
         // Return the results
         return response()->json(
             [
@@ -143,7 +139,6 @@ class AttendanceController extends Controller
             200
         );
     }
-
     // retrieving students with total rendered hourse is equal or more than 3 hours
     //filtered by college_id
     public function getAttendanceByRenderedHourWithCollege(string $id)
@@ -237,48 +232,47 @@ class AttendanceController extends Controller
         );
     }
 
-    // time_in functionality
-    public function timeIn(Request $request)
+    // time_in and time_out functionality
+    public function RecordTime(Request $request)
     {
         $admin_id = $request->input('admin_id');
         $student_id = $request->input('student_id');
 
-        // Logic for recording time_in 
+        // Check if time_in is null
         $attendance = Attendances::where('admin_id', $admin_id)
             ->where('student_id', $student_id)
-            ->update(['time_in' => now()]);
-
-        return response()->json(['message' => 'Time in recorded successfully', 'attendance' => $attendance]);
-    }
-
-    // time_out functionality
-    public function timeOut(Request $request)
-    {
-        $student_id = $request->input('student_id');
-
-        // Retrieve the attendance record
-        $attendance = Attendances::where('student_id', $student_id)
-            ->whereNull('time_out')
             ->first();
 
-        if ($attendance) {
-            // Update time_out and calculate total hours
-            $attendance->time_out = now();
-            $timeIn = new \DateTime($attendance->time_in);
-            $timeOut = new \DateTime($attendance->time_out);
-            $interval = $timeIn->diff($timeOut);
-            $totalHours = $interval->h + $interval->i / 60;
-            // Calculate hours including minutes
+        if (!$attendance || is_null($attendance->time_in)) {
+            // Logic for recording time_in
+            $attendance = Attendances::updateOrCreate(
+                ['admin_id' => $admin_id, 'student_id' => $student_id],
+                ['time_in' => now(), ['time_in' => now(), 'total_hours' => 0, 'required_hours' => 0]] // Set a default value for total_hours
+            );
 
-            // Update total_hours in the database
-            $attendance->total_hours = $totalHours;
-            $attendance->save();
-
-            return response()->json(['message' => 'Time out recorded successfully', 'attendance' => $attendance]);
+            return response()->json(['message' => 'Time in recorded successfully', 'attendance' => $attendance]);
         } else {
-            return response()->json(['message' => 'No matching attendance record found for time_out']);
+            // Logic for recording time_out
+            if (is_null($attendance->time_out)) {
+                // Update time_out and calculate total hours
+                $attendance->time_out = now();
+                $timeIn = new \DateTime($attendance->time_in);
+                $timeOut = new \DateTime($attendance->time_out);
+                $interval = $timeIn->diff($timeOut);
+                $totalHours = $interval->h + $interval->i / 60;
+
+                // Update total_hours in the database
+                $attendance->total_hours = $totalHours;
+                $attendance->save();
+
+                return response()->json(['message' => 'Time out recorded successfully', 'attendance' => $attendance]);
+            } else {
+                return response()->json(['message' => 'Time out already recorded for this attendance']);
+            }
         }
     }
+
+
 
     //retrieve attendences by program   
     public function getStudentAttendece(string $id)
@@ -321,7 +315,6 @@ class AttendanceController extends Controller
         );
     }
 
-
     public function getCollegeInfo()
     {
         $response = DB::table('attendances')
@@ -362,15 +355,5 @@ class AttendanceController extends Controller
             ],
             200
         );
-    }
-
-
-
-
-    public function store(AttendanceRequests $request)
-    {
-        $validated = $request->validated();
-        $attendance = Attendances::create($validated);
-        return $attendance;
     }
 }
