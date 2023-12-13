@@ -18,6 +18,10 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+
 //APIs for Authentication
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [AuthController::class, 'register']);
@@ -30,9 +34,9 @@ Route::group(['prefix' => 'auth'], function () {
 
 // attendance api routes
 Route::controller(AttendanceController::class)->group(function () {
+    // route for setting the time_in and time_out functionality
+    Route::post('/attendnace/record-time', 'RecordTime');
     Route::get('/attendance/college-info', 'getCollegeInfo');
-    Route::post('/attendance/time_in', 'timeIn');
-    Route::post('/attendance/time_out', 'timeOut');
     // api router for getting the students, filtered by college_id
     Route::get('/attendance/attendance-by-college/{id}', 'getAttendanceByCollege');
     // api router for getting the students, filtered by program_id
