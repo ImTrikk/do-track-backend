@@ -24,16 +24,17 @@ header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Autho
 
 //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () {
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
-    });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 // });
 
 // attendance api routes
 Route::controller(AttendanceController::class)->group(function () {
+    Route::post('/attendance/record-time', 'RecordTime');
     Route::get('/attendance/college-info', 'getCollegeInfo');
     Route::post('/attendance/time_in', 'timeIn');
     Route::post('/attendance/time_out', 'timeOut');

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('email', 255);
             $table->string('password', 255);
             $table->string('position', 255);
+            $table->timestamps();
         });
 
         Schema::table('admins', function (Blueprint $table) {
