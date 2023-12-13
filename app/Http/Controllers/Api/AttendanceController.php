@@ -247,7 +247,7 @@ class AttendanceController extends Controller
             // Logic for recording time_in
             $attendance = Attendances::updateOrCreate(
                 ['admin_id' => $admin_id, 'student_id' => $student_id],
-                ['time_in' => now(), ['total_hours' => 0], ['required_hours' => 3]] // Set a default value for total_hours
+                ['time_in' => now(), 'date' => now(), 'total_hours' => 0, 'required_hours' => 3] // Set a default value for total_hours
             );
 
             return response()->json(['message' => 'Time in recorded successfully', 'attendance' => $attendance]);
@@ -267,7 +267,7 @@ class AttendanceController extends Controller
 
                 return response()->json(['message' => 'Time out recorded successfully', 'attendance' => $attendance]);
             } else {
-                return response()->json(['message' => 'Time out already recorded for this attendance']);
+                return response()->json(['message' => 'Time out already recorded for this attendance'], 403);
             }
         }
     }

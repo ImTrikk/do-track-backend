@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('last_name', 50);
             $table->string('digital_sig_url', 255);
             $table->boolean('is_blocked');
+            $table->timestamps();
         });
 
         // constraints

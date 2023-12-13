@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // attendance api routes
 Route::controller(AttendanceController::class)->group(function () {
+
     Route::post('/attendance/record-time', 'RecordTime');
     Route::get('/attendance/college-info', 'getCollegeInfo');
     Route::post('/attendance/time_in', 'timeIn');
