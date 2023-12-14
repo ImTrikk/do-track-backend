@@ -16,21 +16,21 @@ class Admins extends Model implements Authenticatable
 
     protected $primaryKey = 'admin_id';
 
-    // protected $casts = [
-    //     'admin_id' => 'string',
-    // ];
+    protected $casts = [
+        'admin_id' => 'string',
+    ];
     protected $guarded = [];
 
     protected $hidden = ['password'];
 
     public function attendance()
     {
-        return $this->hasMany(Attendance::class, 'admin_id', 'admin_id');
+        return $this->hasMany(Attendances::class, 'admin_id', 'admin_id');
     }
 
     public function college()
     {
-        return $this->belongsTo(Colleges::class, 'college_id', 'college_id');
+        return $this->belongsTo(College::class, 'college_id', 'college_id');
     }
 
     public function getAuthIdentifierName()
