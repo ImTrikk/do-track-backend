@@ -98,14 +98,15 @@ class AuthController extends Controller
         // Set the expiration time for the token (e.g., 24 hours from now)
         $expiresAt = Carbon::now()->addHours(24);
 
+        // Cast $expiresAt to a DateTime object
+        $expiresAtDateTime = $expiresAt->toDateTime();
+
         // Create the token with the numerical part as tokenable_id
         $token = $admin->createToken('auth_token', ['*'], [
             'tokenable_id' => $adminIdNumericalPart,
             'tokenable_type' => get_class($admin),
+            'expires_at' => $expiresAtDateTime,
         ])->plainTextToken;
-
-        // Manually set the expiration time on the token
-        $token->forceFill(['expires_at' => $expiresAt]);
 
         return response()->json(
             [
