@@ -15,11 +15,11 @@ class Admins extends Model implements Authenticatable
     use AuthenicatableTrait, HasFactory, HasApiTokens, Notifiable;
 
     protected $primaryKey = 'admin_id';
+    protected $guarded = [];
 
     protected $casts = [
         'admin_id' => 'string',
     ];
-    protected $guarded = [];
 
     protected $hidden = ['password'];
 
@@ -31,6 +31,11 @@ class Admins extends Model implements Authenticatable
     public function college()
     {
         return $this->belongsTo(College::class, 'college_id', 'college_id');
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->getAttribute('admin_id');
     }
 
     public function getAuthIdentifierName()

@@ -81,7 +81,7 @@ class AuthController extends Controller
                     'status' => 'error',
                     'message' => 'Invalid password. Please try again.',
                 ],
-                401
+                403
             );
         }
 

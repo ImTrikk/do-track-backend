@@ -10,8 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            //
+        //
+        Schema::table('questions', function (Blueprint $table) {
+            //change from bigint to string
             $table->string('admin_id')->change();
         });
     }
@@ -21,8 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->string('admin_id')->change();
-        });
+        //
     }
 };
