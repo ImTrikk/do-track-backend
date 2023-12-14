@@ -275,7 +275,7 @@ class AttendanceController extends Controller
 
 
     //retrieve attendences by program   
-    public function getStudentAttendece(string $id)
+    public function getStudentAttendees(string $id)
     {
         $response = DB::table('attendances')
             ->select(
