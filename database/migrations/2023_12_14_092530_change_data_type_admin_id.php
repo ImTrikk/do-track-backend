@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         //
-        Schema::table('questions', function (Blueprint $table) {
+        Schema::table('admins', function (Blueprint $table) {
             //change from bigint to string
             $table->string('admin_id')->change();
         });
