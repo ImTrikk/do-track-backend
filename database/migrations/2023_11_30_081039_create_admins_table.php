@@ -9,6 +9,11 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
+
+    protected $casts = [
+        'admin_id' => 'string',
+    ];
+
     public function up(): void
     {
         Schema::create('admins', function (Blueprint $table) {
