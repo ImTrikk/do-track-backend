@@ -90,29 +90,16 @@ class AuthController extends Controller
             );
         }
 
-        // ...
+        $adminID = $admin;
 
-        // Extract the numerical part from the admin_id
-        $adminIdNumericalPart = (int) preg_replace('/[^0-9]/', '', $admin->admin_id);
-
-        // Set the expiration time for the token (e.g., 24 hours from now)
-        $expiresAt = Carbon::now()->addHours(24);
-
-        // Cast $expiresAt to a DateTime object
-        $expiresAtDateTime = $expiresAt->toDateTime();
-
-        // Create the token with the numerical part as tokenable_id
-        $token = $admin->createToken('auth_token', ['*'], [
-            'tokenable_id' => $adminIdNumericalPart,
-            'tokenable_type' => get_class($admin),
-            'expires_at' => $expiresAtDateTime,
-        ])->plainTextToken;
+        $token = $admin->createToken('auth_token')->plainTextToken;
 
         return response()->json(
             [
                 'message' => 'Login successful',
                 'data' => [
                     'admin' => $admin,
+                    'admin_id' => $adminID,
                     'token' => $token,
                 ],
             ],
