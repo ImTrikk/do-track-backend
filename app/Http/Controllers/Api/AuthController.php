@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Admins;
+
+
 
 class AuthController extends Controller
 {
@@ -89,9 +94,12 @@ class AuthController extends Controller
         $adminIdNumericalPart = (int) preg_replace('/[^0-9]/', '', $admin->admin_id);
 
         // Create the token with the numerical part as tokenable_id
+        $expiresAt = Carbon::now()->addHours(24); // Set the expiration time as needed
+
         $token = $admin->createToken('auth_token', ['*'], [
             'tokenable_id' => $adminIdNumericalPart,
             'tokenable_type' => get_class($admin),
+            'expires_at' => $expiresAt,
         ])->plainTextToken;
 
         return response()->json(
