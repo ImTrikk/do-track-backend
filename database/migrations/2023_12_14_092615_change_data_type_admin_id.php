@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::table('admins', function (Blueprint $table) {
             // Modify the column type or add other changes you need
             $table->string('admin_id')->change();
-            $table->unique('admin_id', 'admins_admin_id_unique');
         });
 
         // Comment out or remove the attempt to add the unique constraint

@@ -4,30 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class UpdatePersonalAccessTokensTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
-            $table->timestamps();
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            // Change 'tokenable_id' to a string
+            $table->string('tokenable_id')->change();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        // Revert the change if needed
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->unsignedBigInteger('tokenable_id')->change();
+        });
     }
-};
+}
+

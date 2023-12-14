@@ -23,22 +23,9 @@ class Attendances extends Model
         'student_id',
         'admin_id'
     ];
-    // protected $casts = [
-    //     'total_hours' => 'float',
-    // ];
 
-    // protected $dates = [
-    //     'time_in',
-    //     'time_out',
-    // ];
-
-    // public function student()
-    // {
-    //     return $this->belongsTo(Students::class, 'student_id');
-    // }
-
-    // public function admin()
-    // {
-    //     return $this->belongsTo(Admins::class, 'admin_id');
-    // }
+    public function admin()
+    {
+        return $this->belongsTo(Admins::class, 'admin_id');
+    }
 }
