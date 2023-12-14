@@ -24,7 +24,7 @@ use App\Http\Controllers\Api\AuthController;
 // header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 
 //APIs for Authentication
-// Route::group(['prefix' => 'auth'], function () {
+// Route::group(['prefix' => 'auth'], function () { 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 

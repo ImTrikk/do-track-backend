@@ -85,7 +85,14 @@ class AuthController extends Controller
             );
         }
 
-        $token = $admin->createToken('auth_token')->plainTextToken;
+        // Extract the numerical part from the admin_id
+        $adminIdNumericalPart = (int) preg_replace('/[^0-9]/', '', $admin->admin_id);
+
+        // Create the token with the numerical part as tokenable_id
+        $token = $admin->createToken('auth_token', ['*'], [
+            'tokenable_id' => $adminIdNumericalPart,
+            'tokenable_type' => get_class($admin),
+        ])->plainTextToken;
 
         return response()->json(
             [

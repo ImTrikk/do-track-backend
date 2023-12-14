@@ -5,23 +5,17 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        //
         Schema::table('admins', function (Blueprint $table) {
-            //change from bigint to string
             $table->string('admin_id')->change();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) { });
+        Schema::table('admins', function (Blueprint $table) {
+            $table->integer('admin_id')->change();
+        });
     }
 };
