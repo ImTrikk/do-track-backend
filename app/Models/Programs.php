@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Programs extends Model
 {
+    protected $primaryKey = 'program_id';
     use HasFactory;
 }
