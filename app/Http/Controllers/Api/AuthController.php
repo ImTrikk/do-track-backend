@@ -33,11 +33,13 @@ class AuthController extends Controller
         ]);
 
         if ($admin->save()) {
+            $token = $admin->createToken('Personal Access Token');
             return response()->json(
                 [
                     'status' => 'success',
                     'message' => 'Admin created successfully',
                     'data' => $admin,
+                    'accessToken' => $token,
                 ],
                 201
             );
@@ -85,8 +87,9 @@ class AuthController extends Controller
             );
         }
 
-        $token = $admin->createToken('auth_token')->plainTextToken;
-
+        // $token = $admin->createToken('auth_token')->plainTextToken;
+        $tokenResult = $admin->createToken('Personal Access Token');
+        $token = $tokenResult->plainTextToken;
         return response()->json(
             [
                 'message' => 'Login successful',
