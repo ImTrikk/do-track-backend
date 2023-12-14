@@ -11,11 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('admins', function (Blueprint $table) {
-            // Modify the column type or add other changes you need
-            $table->string('admin_id')->change();
+            $table
+                ->string('admins_id')
+                ->unique()
+                ->change();
         });
-
-        // Comment out or remove the attempt to add the unique constraint
     }
 
     /**
@@ -23,9 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            // Reverse the changes made in the 'up' method
-            $table->string('admin_id')->change();
-        });
+        Schema::table('students', function (Blueprint $table) { });
     }
 };
