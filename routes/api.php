@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-header('Access-Control-Allow-Origin: https://do-track.vercel.app');
+// header('Access-Control-Allow-Origin: https://do-track.vercel.app');
 // header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 
