@@ -17,9 +17,9 @@ class Admins extends Model implements Authenticatable
     protected $primaryKey = 'admin_id';
     protected $guarded = [];
 
-    // protected $casts = [
-    //     'admin_id' => 'string',
-    // ];
+    protected $casts = [
+        'admin_id' => 'string',
+    ];
 
     protected $hidden = ['password'];
 

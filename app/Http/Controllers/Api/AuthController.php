@@ -90,7 +90,6 @@ class AuthController extends Controller
             );
         }
 
-        $adminID = $admin;
 
         $token = $admin->createToken('auth_token')->plainTextToken;
 
@@ -99,7 +98,6 @@ class AuthController extends Controller
                 'message' => 'Login successful',
                 'data' => [
                     'admin' => $admin,
-                    'admin_id' => $adminID,
                     'token' => $token,
                 ],
             ],
