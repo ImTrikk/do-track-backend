@@ -21,7 +21,7 @@ return [
 
     'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ["https://do-track.vercel.app/"],
 
     'allowed_headers' => ['*'],
 
