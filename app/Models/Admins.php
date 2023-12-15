@@ -14,6 +14,8 @@ class Admins extends Model implements Authenticatable
 
     use AuthenicatableTrait, HasFactory, HasApiTokens, Notifiable;
 
+    public $incrementing = false;
+
     protected $primaryKey = 'admin_id';
     protected $guarded = [];
 
