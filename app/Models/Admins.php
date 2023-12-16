@@ -3,20 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenicatableTrait;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Admins extends Model implements Authenticatable
+class Admin extends Model implements Authenticatable
 {
+    use AuthenticatableTrait, HasFactory, HasApiTokens, Notifiable;
 
-    use AuthenicatableTrait, HasFactory, HasApiTokens, Notifiable;
-
-
-    public $incrementing = false;
     protected $primaryKey = 'admin_id';
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $guarded = [];
 
     protected $casts = [
