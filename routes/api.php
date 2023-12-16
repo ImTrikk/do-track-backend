@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-header('Access-Control-Allow-Origin');
+// header('Access-Control-Allow-Origin');
 
 //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
