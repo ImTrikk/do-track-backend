@@ -12,7 +12,7 @@ class CorsMiddleware
 
         $response->header(
             'Access-Control-Allow-Origin',
-            'https://do-track.vercel.app/'
+            '*'
         );
 
         return $response;
