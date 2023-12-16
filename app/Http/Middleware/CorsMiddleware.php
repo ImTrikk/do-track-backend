@@ -15,11 +15,6 @@ class CorsMiddleware
         $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
         $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-        // Handle preflight requests
-        if ($request->isMethod('OPTIONS')) {
-            return response()->json([], 201);
-        }
-
         return $response;
     }
 }
