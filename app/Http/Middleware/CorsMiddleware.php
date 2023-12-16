@@ -10,10 +10,16 @@ class CorsMiddleware
     {
         $response = $next($request);
 
-        $response->header(
-            'Access-Control-Allow-Origin',
-            'https://do-track.vercel.app'
-        );
+        $allowedOrigins = [
+            'https://do-track.vercel.app',
+            // Add more allowed origins if needed
+        ];
+
+        $origin = $request->headers->get('Origin');
+
+        if (in_array($origin, $allowedOrigins)) {
+            $response->header('Access-Control-Allow-Origin', $origin);
+        }
 
         return $response;
     }
