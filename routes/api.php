@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Middleware\PreflightResponse;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,15 @@ use App\Http\Controllers\Api\AuthController;
 
 header('Access-Control-Allow-Origin: https://do-track.vercel.app');
 
+Route::middleware([PreflightResponse::class])->group(function () {
+    // Your routes here
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
 //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
