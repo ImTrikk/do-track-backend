@@ -19,12 +19,13 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-header('Access-Control-Allow-Origin: https://do-track.vercel.app');
-
-//APIs for Authentication
+Route::middleware(['cors'])->group(function () {
+    //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
