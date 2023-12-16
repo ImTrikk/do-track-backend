@@ -5,12 +5,9 @@
 
 
 return [
-    'middleware' => [
-        \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        // Other middleware entries...
-    ],
     'paths' => ['*'],
     'allowed_methods' => ['*'],
+    'Access-Control-Allow-Origin' => ['*'],
     'allowed_origins' => ['https://do-track.vercel.app'],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
