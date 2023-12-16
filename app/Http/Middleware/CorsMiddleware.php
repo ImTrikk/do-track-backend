@@ -10,11 +10,16 @@ class CorsMiddleware
     {
         $response = $next($request);
 
-        $response->header('Access-Control-Allow-Origin', 'https://do-track.vercel.app');
-        $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        $response->header('Access-Control-Allow-Credentials', 'true');
+        $headers = [
+            'Access-Control-Allow-Origin' => 'https://do-track.vercel.app',
+            'Access-Control-Allow-Methods' => 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization',
+            'Access-Control-Allow-Credentials' => 'true',
+        ];
+
+        $response->headers->add($headers);
 
         return $response;
     }
+
 }
