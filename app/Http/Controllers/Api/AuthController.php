@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Models\Admin;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class AuthController extends Controller
             'position' => 'required',
         ]);
 
-        $admin = Admins::create([
+        $admin = Admin::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'admin_id' => $request->admin_id,
