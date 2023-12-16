@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://do-track.vercel.app/register', 'https://do-track.vercel.app/login'],
 
     'allowed_origins_patterns' => [],
 
