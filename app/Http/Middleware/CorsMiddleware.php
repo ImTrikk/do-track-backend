@@ -12,7 +12,7 @@ class CorsMiddleware
         $response = $next($request);
 
         $allowedOrigins = [
-            'https://do-track.vercel.app',
+            '*',
             // Add more allowed origins if needed
         ];
 
