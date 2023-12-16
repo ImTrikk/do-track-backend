@@ -8,6 +8,7 @@ class CorsMiddleware
 {
     public function handle($request, Closure $next)
     {
+        dd('test');
         $response = $next($request);
 
         $allowedOrigins = [
