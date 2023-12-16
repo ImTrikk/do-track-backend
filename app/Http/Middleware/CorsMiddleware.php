@@ -17,10 +17,7 @@ class CorsMiddleware
 
         // Handle preflight requests
         if ($request->isMethod('OPTIONS')) {
-            return response('', 200)
-                ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            return response()->json([], 201);
         }
 
         return $response;
