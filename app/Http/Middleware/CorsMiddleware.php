@@ -12,7 +12,7 @@ class CorsMiddleware
 
         $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
         $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        $response->header('Access-Control-Allow-Origin', 'https://do-track.vercel.app');
+        $response->header('Access-Control-Allow-Origin', '*');
 
         return $response;
     }
