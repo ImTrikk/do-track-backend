@@ -17,7 +17,7 @@ return [
 
     'paths' => ['*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => [],
 
     'allowed_origins' => ['https://do-track.vercel.app'],
 
