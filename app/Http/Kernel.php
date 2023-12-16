@@ -15,7 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
             // \App\Http\Middleware\TrustHosts::class,
-            // \App\Http\Middleware\CorsMiddleware::class,
+        \App\Http\Middleware\CorsMiddleware::class,
             // Middleware\PreflightResponse::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'cors' => \App\Http\Middleware\CorsMiddleware::class,
     ];
 
     /**
