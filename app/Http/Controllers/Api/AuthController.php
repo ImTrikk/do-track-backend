@@ -65,7 +65,7 @@ class AuthController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $admin = Admins::where('email', $request->email)->first();
+        $admin = Admin::where('email', $request->email)->first();
 
         if (!$admin) {
             return response()->json(
