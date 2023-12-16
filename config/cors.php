@@ -19,11 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // 'allowed_origins' => ['https://do-track.vercel.app'],
+    'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => ['*'],
 
-    // 'allowed_headers' => ['*'],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
