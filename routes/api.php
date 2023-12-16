@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-Route::middleware(['cors'])->group(function () {
+Route::middleware(['api'])->group(function () {
     //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
     Route::post('/register', [AuthController::class, 'register']);
