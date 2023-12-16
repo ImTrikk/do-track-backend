@@ -19,7 +19,6 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-header('Access-Control-Allow-Origin: https://do-track.vercel.app');
 
 //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
