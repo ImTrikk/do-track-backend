@@ -20,13 +20,10 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-header('Access-Control-Allow-Origin: https://do-track.vercel.app');
 
-Route::middleware([PreflightResponse::class])->group(function () {
-    // Your routes here
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
-});
+// Your routes here
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 //APIs for Authentication
 // Route::group(['prefix' => 'auth'], function () { 
