@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
+use App\Models\Admins;
 
 
 
@@ -27,7 +27,7 @@ class AuthController extends Controller
             'position' => 'required',
         ]);
 
-        $admin = Admin::create([
+        $admin = Admins::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'admin_id' => $request->admin_id,
@@ -64,7 +64,7 @@ class AuthController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $admin = Admin::where('email', $request->email)->first();
+        $admin = Admins::where('email', $request->email)->first();
 
         if (!$admin) {
             return response()->json(
