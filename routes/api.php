@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\CollegeController;
 use App\Http\Middleware\PreflightResponse;
 use App\Models\Students;
 use Illuminate\Http\Request;
@@ -58,4 +59,9 @@ Route::controller(AttendanceController::class)->group(function () {
 
     // api route for atendees
     Route::get('/attendance/getStudentAttendees/{id}', 'getStudentAttendees');
+});
+
+
+Route::controller(CollegeController::class)->group(function () {
+    Route::get('/college/get-programs-college/{id}', 'getProgramsByCollege');
 });

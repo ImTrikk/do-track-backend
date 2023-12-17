@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,9 +19,9 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => ['required', 'email', Rule::unique('admins')],
             'password' => 'required|min:8',
-            'admin_id' => 'required',
+            'admin_id' => ['required', Rule::unique('admins')],
             'first_name' => 'required',
             'last_name' => 'required',
             'college_id' => 'required',
@@ -37,26 +38,14 @@ class AuthController extends Controller
             'position' => $request->position
         ]);
 
-        if ($admin) {
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Admin created successfully',
-                    'data' => $admin,
-                ],
-                201
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => 'error',
-                    'message' => 'Admin already exist',
-
-                ],
-                409
-            );
-        }
-
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Admin created successfully',
+                'data' => $admin,
+            ],
+            201
+        );
     }
 
 
