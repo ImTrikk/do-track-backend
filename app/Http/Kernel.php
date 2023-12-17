@@ -26,8 +26,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            // Remove the following line
-            // \App\Http\Middleware\CorsMiddleware::class,
+                // Remove the following line
+            \App\Http\Middleware\CorsMiddleware::class,
         ],
 
         'api' => [
