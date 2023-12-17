@@ -14,6 +14,7 @@ class CollegeController extends Controller
     {
         $colleges = DB::table('colleges')
             ->select('college_name')
+            ->where('college_id', '=', $id)
             ->get();
 
         $formattedData = ['data' => []];
