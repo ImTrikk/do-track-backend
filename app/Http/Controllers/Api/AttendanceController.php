@@ -27,7 +27,7 @@ class AttendanceController extends Controller
                 'programs.program_name',
                 'colleges.college_name',
                 'admins.first_name as admin_first_name',
-                'admins.last_name as admin_last_name',
+                'admins.last_name as admin_last_name' // Remove the trailing comma here
             )
             ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
@@ -35,6 +35,7 @@ class AttendanceController extends Controller
             ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
             ->where('colleges.college_id', '=', $id)
             ->get();
+
         // Check if there are results
         if ($response->isEmpty()) {
             return response()->json(
@@ -46,7 +47,7 @@ class AttendanceController extends Controller
             );
         }
 
-        // return the results
+        // Return the results
         return response()->json(
             [
                 'status' => 'success',
@@ -56,6 +57,7 @@ class AttendanceController extends Controller
             200
         );
     }
+
 
     // display attendances by program
     public function getAttendanceByProgram(string $id)
