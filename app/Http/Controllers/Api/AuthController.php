@@ -44,7 +44,7 @@ class AuthController extends Controller
                     'message' => 'Admin created successfully',
                     'data' => $admin,
                 ],
-                201
+                200
             );
         } else {
             return response()->json(
