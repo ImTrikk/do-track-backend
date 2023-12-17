@@ -46,7 +46,17 @@ class AuthController extends Controller
                 ],
                 201
             );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Admin already exist',
+
+                ],
+                409
+            );
         }
+
     }
 
 
