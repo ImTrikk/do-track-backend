@@ -7,7 +7,7 @@ class Kernel extends HttpKernel
 {
     protected $middleware = [
             // \App\Http\Middleware\TrustHosts::class,
-        \App\Http\Middleware\CorsMiddleware::class,
+            // \App\Http\Middleware\CorsMiddleware::class,
         Middleware\PreflightResponse::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
@@ -23,11 +23,11 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
+                // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            // Remove the following line
-            // \App\Http\Middleware\CorsMiddleware::class,
+                // Remove the following line
+            \App\Http\Middleware\CorsMiddleware::class,
         ],
 
         'api' => [
