@@ -37,25 +37,16 @@ class AuthController extends Controller
             'position' => $request->position
         ]);
 
-        if ($admin->save()) {
-            return response()->json(
-                [
-                    'status' => 'success',
-                    'message' => 'Admin created successfully',
-                    'data' => $admin,
-                ],
-                201
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => 'error',
-                    'message' => 'Admin not created',
-                ],
-                401
-            );
-        }
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Admin created successfully',
+                'data' => $admin,
+            ],
+            201
+        );
     }
+
 
     public function login(Request $request)
     {
