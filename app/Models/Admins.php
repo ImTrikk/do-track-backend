@@ -16,7 +16,7 @@ class Admins extends Model implements Authenticatable
 
     public $incrementing = false;
 
-    protected $primaryKey = ['admin_id', 'email'];
+    protected $primaryKey = 'admin_id';
 
 
     protected $guarded = [];
