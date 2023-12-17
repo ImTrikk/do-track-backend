@@ -18,7 +18,7 @@ class PreflightResponse
         // Handle preflight OPTIONS requests
         if ($request->isMethod('OPTIONS')) {
             return response()
-                ->setStatusCode(201) // Set your desired status code here
+                ->setStatusCode(200) // Set your desired status code here
                 ->header('Access-Control-Allow-Origin', 'https://do-track.vercel.app')
                 ->header('Access-Control-Allow-Methods', 'OPTIONS, POST, GET, PUT, DELETE')
                 ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
