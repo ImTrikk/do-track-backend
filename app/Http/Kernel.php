@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -7,8 +6,9 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     protected $middleware = [
-            // ...
-        \App\Http\Middleware\TrustHosts::class,
+            // \App\Http\Middleware\TrustHosts::class,
+            // \App\Http\Middleware\CorsMiddleware::class,
+            // Middleware\PreflightResponse::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
