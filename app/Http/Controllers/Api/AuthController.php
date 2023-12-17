@@ -17,15 +17,15 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // $request->validate([
-        //     'email' => 'required',
-        //     'password' => 'required|min:8',
-        //     'admin_id' => 'required',
-        //     'first_name' => 'required',
-        //     'last_name' => 'required',
-        //     'college_id' => 'required',
-        //     'position' => 'required',
-        // ]);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required|min:8',
+            'admin_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'college_id' => 'required',
+            'position' => 'required',
+        ]);
 
         $admin = Admins::create([
             'email' => $request->email,
