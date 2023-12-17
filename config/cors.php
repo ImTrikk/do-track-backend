@@ -15,15 +15,15 @@ return [
     |
     */
 
-    'paths' => ["*", 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ["*"],
+    'allowed_methods' => ['*'],
 
     'allowed_origins' => ["https://do-track.vercel.app/signup"],
 
-    'allowed_origins_patterns' => ["*"],
+    'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ["*"],
+    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
