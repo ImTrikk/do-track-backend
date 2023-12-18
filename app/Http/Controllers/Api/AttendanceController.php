@@ -25,9 +25,10 @@ class AttendanceController extends Controller
                 'attendances.time_out',
                 'attendances.total_hours',
                 'programs.program_name',
+                'students.year_level_code',
                 'colleges.college_name',
                 'admins.first_name as admin_first_name',
-                'admins.last_name as admin_last_name' // Remove the trailing comma here
+                'admins.last_name as admin_last_name'
             )
             ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')

@@ -22,7 +22,7 @@ class CollegeController extends Controller
         // Fetch programs for the current college
         $programs = DB::table('programs')
             ->select('program_id', 'program_name')
-            ->where('college_id', $id) // Adjust this condition based on your requirement
+            ->where('college_id', $id)
             ->get();
 
 

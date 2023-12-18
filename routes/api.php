@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\CollegeController;
-use App\Http\Middleware\PreflightResponse;
-use App\Models\Students;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //controllers
@@ -36,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 // attendance api routes
 Route::controller(AttendanceController::class)->group(function () {
 
-    // api route for tiem_in and time_out of students
+    // api route for time_in and time_out of students
     Route::post('/attendance/record-time', 'RecordTime');
 
     // api route for getting the 

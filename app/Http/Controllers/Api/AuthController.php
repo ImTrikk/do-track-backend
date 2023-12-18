@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email', Rule::unique('admins')],
+            'email' => ['required', 'email', Rule::unique('admins')],   
             'password' => 'required|min:8',
             'admin_id' => ['required', Rule::unique('admins')],
             'first_name' => 'required',

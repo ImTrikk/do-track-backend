@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('student_id')->unique();
+            $table->string('student_id')->unique()->primary();
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('digital_sig_url', 255);
