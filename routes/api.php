@@ -59,6 +59,9 @@ Route::controller(AttendanceController::class)->group(function () {
 
     // get all scanned students by a specific admin
     Route::get('/attendance/get-scanned-by-admin/{id}', "getScannedByAdmin");
+
+    // delete student attendance record
+    Route::delete('/attendance/delete-student-record/{id}', 'deleteStudentAttendanceRecord');
 });
 
 

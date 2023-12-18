@@ -287,7 +287,6 @@ class AttendanceController extends Controller
             // Logic for recording time_out
             if ($attendance->time_in && is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
-                // Update time_out and calculate total hours
                 // $attendance->time_out = now()->tz('Asia/Manila')->addHours(5)->format('Y-m-d H:i:s');
                 $attendance->time_out = now()->tz('Asia/Manila')->format('Y-m-d H:i:s');
 
@@ -424,5 +423,23 @@ class AttendanceController extends Controller
                 'data' => $response
             ]
         );
+    }
+
+    public function deleteStudentAttendanceRecord(string $id)
+    {
+        $affectedRows = DB::table('attendances')->where('student_id', $id)->delete();
+
+        if ($affectedRows > 0) {
+            return response()->json(
+                [
+                    'status' => 'Student attendance record deleted'
+                ], 200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'error', 'message' => 'Record not found'
+                ], 404);
+        }
     }
 }
