@@ -357,6 +357,13 @@ class AttendanceController extends Controller
             ->where('attendances.total_hours', '>=', 3.00)
             ->get();
 
+        $program_name = DB::table('students')
+            ->select('programs.program_name')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->where('programs.program_id', '=', $id)
+            ->limit(1)
+            ->get();
+
         // Calculate the percentage
         $percentage = 0;
         if ($totalStudents->isNotEmpty() && $attendees->isNotEmpty()) {
@@ -370,6 +377,7 @@ class AttendanceController extends Controller
         }
 
         return response()->json([
+            'program_name' => $program_name,
             'total_students' => $totalStudents,
             'attendees' => $attendees,
             'student_percentage' => $percentage,
