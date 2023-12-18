@@ -265,11 +265,12 @@ class AttendanceController extends Controller
             if (is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
                 $attendance->time_out = now()->tz('Asia/Manila');
+
                 $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Manila');
                 $timeOut = now()->tz('Asia/Manila');
 
-                $interval = $timeIn->diff($timeOut);
-                $totalHours = $interval->h + $interval->i / 60;
+                // Use diffInHours to get the hour difference
+                $totalHours = $timeIn->diffInHours($timeOut);
 
                 // Update total_hours in the database
                 $attendance->total_hours = $totalHours;
@@ -280,6 +281,7 @@ class AttendanceController extends Controller
                 return response()->json(['message' => 'Time out already recorded for this attendance'], 403);
             }
         }
+
     }
 
 
