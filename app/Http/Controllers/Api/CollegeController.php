@@ -17,8 +17,6 @@ class CollegeController extends Controller
             ->where('college_id', '=', $id)
             ->get();
 
-
-
         // Fetch programs for the current college
         $programs = DB::table('programs')
             ->select('program_id', 'program_name')

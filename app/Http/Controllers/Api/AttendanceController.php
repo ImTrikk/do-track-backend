@@ -251,8 +251,8 @@ class AttendanceController extends Controller
             $attendance = Attendances::updateOrCreate(
                 ['admin_id' => $admin_id, 'student_id' => $student_id],
                 [
-                    'time_in' => now()->tz('Asia/Manila'), // Set to Philippine Time
-                    'date' => now()->tz('Asia/Manila'),   // Set to Philippine Time
+                    'time_in' => now()->tz('Asia/Manila')->format('Y-m-d H:i:s'), // Set to Philippine Time
+                    'date' => now()->tz('Asia/Manila')->format('Y-m-d H:i:s'),   // Set
                     'total_hours' => 0,
                     'required_hours' => 3
                 ] // Set a default value for total_hours
@@ -271,30 +271,25 @@ class AttendanceController extends Controller
             // Logic for recording time_out
             if ($attendance->time_in && is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
-                $attendance->time_out = now()->tz('Asia/Manila');
+                // Update time_out and calculate total hours
+                // $attendance->time_out = now()->tz('Asia/Manila')->addHours(5)->format('Y-m-d H:i:s');
+                $attendance->time_out = now()->tz('Asia/Manila')->format('Y-m-d H:i:s');
 
                 $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Manila');
                 $timeOut = Carbon::parse($attendance->time_out)->tz('Asia/Manila'); // Ensure both use the same timezone
 
-                // Calculate the difference in seconds and convert to hours
-                $totalHours = $timeIn->diffInSeconds($timeOut) / 3600;
+                // Calculate the difference in hours directly
+                $hoursDifference = $timeIn->diffInHours($timeOut);
 
-                // Update total_hours in the database
-                $attendance->total_hours = $totalHours;
+                // Update total_hours in the database (using hours as a decimal)
+                $attendance->total_hours = $hoursDifference;
                 $attendance->save();
-
                 return response()->json(['message' => 'Time out recorded successfully', 'attendance' => $attendance]);
             } else {
                 return response()->json(['message' => 'Time out already recorded for this attendance'], 403);
             }
         }
     }
-
-
-
-
-
-
 
 
     //retrieve attendences by program   
