@@ -265,7 +265,7 @@ class AttendanceController extends Controller
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Another admin has recorded the student\'s attendance'
-                ], 400);
+                ], 403);
             }
 
             // Logic for recording time_out
