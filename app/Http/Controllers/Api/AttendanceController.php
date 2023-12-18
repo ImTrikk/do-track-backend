@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttendanceRequests;
+use App\Models\Admins;
 use App\Models\Attendances;
+use App\Models\Students;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -241,6 +243,20 @@ class AttendanceController extends Controller
     {
         $admin_id = $request->admin_id;
         $student_id = $request->student_id;
+
+        // Check if student_id exists in the students table
+        $studentExists = Students::where('student_id', $student_id)->exists();
+
+        if (!$studentExists) {
+            return response()->json(['status' => 'error', 'message' => 'Student not found'], 404);
+        }
+
+        // Check if student_id exists in the admins table
+        $adminExists = Admins::where('admin_id', $student_id)->exists();
+
+        if ($adminExists) {
+            return response()->json(['status' => 'error', 'message' => 'Scanned ID is an admin_id'], 403);
+        }
 
         // Check if time_in is null
         $attendance = Attendances::where('student_id', $student_id)
