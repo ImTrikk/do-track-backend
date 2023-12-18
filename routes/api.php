@@ -37,7 +37,7 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::post('/attendance/record-time', 'RecordTime');
 
     // api route for getting the 
-    Route::get('/attendance/college-info', 'getCollegeInfo');
+    Route::get('/attendance/college-info/{id}', 'getCollegeInfo');
 
     // api router for getting the students, filtered by college_id
     Route::get('/attendance/attendance-by-college/{id}', 'getAttendanceByCollege');

@@ -304,10 +304,12 @@ class AttendanceController extends Controller
                 'attendances.time_out',
                 'attendances.total_hours',
                 'programs.program_name',
+                'year_levels.year_level_code',
                 'admins.first_name as admin_first_name',
                 'admins.last_name as admin_last_name'
             )
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('year_levels', 'year_levels.year_level_code', '=', 'students.year_level_code')
             ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('programs.program_id', '=', $id)
@@ -337,64 +339,15 @@ class AttendanceController extends Controller
         );
     }
 
-    public function getCollegeInfo()
+    public function getCollegeInfo(string $id)
     {
-        // $response = DB::table('attendances')
-        //     ->select(
-        //         'colleges.college_name',
-        //         DB::raw('count(students.student_id) as total_population'),
-        //         DB::raw('count(CASE WHEN attendances.total_hours >= 3 THEN students.student_id END) as attendees')
-        //     )
-        //     ->join('students', 'attendances.student_id', '=', 'students.student_id')
-        //     ->join('programs', 'programs.program_id', '=', 'students.program_id')
-        //     ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
-        //     ->where('programs.program_id', '=', 'CIS-IT')
-        //     ->groupBy('colleges.college_name')
-        //     ->get();
-
-
-        // // Check if there are results
-        // if ($response->isEmpty()) {
-        //     return response()->json(
-        //         [
-        //             'status' => 'error',
-        //             'message' => "No data set yet"
-        //         ],
-        //         404
-        //     );
-        // }
-
-        // // Calculate the percentage and add it to the response
-        // $total_population = $response->map(function ($item) {
-        //     $items = $item->total_population;
-        //     return $items;
-
-        // });
-        // $attendeesPercentage = $response->map(function ($item) {
-        //     $item->percentage = $item->attendees / $item->total_population * 100;
-        //     return $item;
-        // });
-
-
-        // // Return the results with the percentage
-        // return response()->json(
-        //     [
-        //         'status' => 'success',
-        //         'message' => "Retrieved colleges and information",
-        //         'data' => [
-        //             'attendees_percentage' => $attendeesPercentage,
-        //             'program_population' => $total_population
-        //         ]
-        //     ],
-        //     200
-        // );
 
         // Query to count all students and return all students
         // Query to count total students in the specified program
         $totalStudents = DB::table('students')
             ->select(DB::raw('count(students.student_id) as total_population'))
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
-            ->where('programs.program_id', '=', 'CIS-IT')
+            ->where('programs.program_id', '=', $id)
             ->get();
 
         // Query to count attendees with a total_hours condition
