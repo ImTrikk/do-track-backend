@@ -382,6 +382,31 @@ class AttendanceController extends Controller
             'attendees' => $attendees,
             'student_percentage' => $percentage,
         ]);
+    }
 
+    public function getScannedByAdmin(string $id)
+    {
+        $response = DB::table('attendances')
+            ->select(
+                'students.first_name',
+                'students.last_name',
+                'attendances.time_in',
+                'attendances.time_out',
+                'programs.program_name',
+                'year_levels.year_level_code',
+
+            )
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('year_levels', 'year_levels.year_level_code', '=', 'students.year_level_code')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
+            ->where('admins.admin_id', '=', $id)
+            ->get();
+
+        return response()->json(
+            [
+                'data' => $response
+            ]
+        );
     }
 }

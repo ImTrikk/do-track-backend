@@ -55,7 +55,10 @@ Route::controller(AttendanceController::class)->group(function () {
     Route::get('/attendance/attendance-by-no-timestamps/{id}', 'getStudentNoTimeInOut');
 
     // api route for atendees
-    Route::get('/attendance/getStudentAttendees/{id}', 'getStudentAttendees');
+    Route::get('/attendance/get-student-attendees/{id}', 'getStudentAttendees');
+
+    // get all scanned students by a specific admin
+    Route::get('/attendance/get-scanned-by-admin/{id}', "getScannedByAdmin");
 });
 
 
