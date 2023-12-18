@@ -8,6 +8,7 @@ use App\Models\Attendances;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
@@ -263,9 +264,10 @@ class AttendanceController extends Controller
             // Logic for recording time_out
             if (is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
-                $attendance->time_out = now();
-                $timeIn = $attendance->time_in;
+                $attendance->time_out = now()->tz('Asia/Manila');
+                $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Manila');
                 $timeOut = now()->tz('Asia/Manila');
+
                 $interval = $timeIn->diff($timeOut);
                 $totalHours = $interval->h + $interval->i / 60;
 
