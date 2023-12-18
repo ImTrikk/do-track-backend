@@ -264,8 +264,8 @@ class AttendanceController extends Controller
             if (is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
                 $attendance->time_out = now();
-                $timeIn = new \DateTime($attendance->time_in);
-                $timeOut = new \DateTime($attendance->time_out);
+                $timeIn = $attendance->time_in;
+                $timeOut = now()->tz('Asia/Manila');
                 $interval = $timeIn->diff($timeOut);
                 $totalHours = $interval->h + $interval->i / 60;
 
