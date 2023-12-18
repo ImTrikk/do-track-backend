@@ -239,12 +239,11 @@ class AttendanceController extends Controller
     // time_in and time_out functionality
     public function RecordTime(Request $request)
     {
-        $admin_id = $request->input('admin_id');
-        $student_id = $request->input('student_id');
+        $admin_id = $request->admin_id;
+        $student_id = $request->student_id;
 
         // Check if time_in is null
-        $attendance = Attendances::where('admin_id', $admin_id)
-            ->where('student_id', $student_id)
+        $attendance = Attendances::where('student_id', $student_id)
             ->first();
 
         if (!$attendance || is_null($attendance->time_in)) {
@@ -261,16 +260,24 @@ class AttendanceController extends Controller
 
             return response()->json(['message' => 'Time in recorded successfully', 'attendance' => $attendance]);
         } else {
+            // Check if the attendance was recorded by another admin
+            if ($attendance->admin_id != $admin_id) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Another admin has recorded the student\'s attendance'
+                ]);
+            }
+
             // Logic for recording time_out
-            if (is_null($attendance->time_out)) {
+            if ($attendance->time_in && is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
                 $attendance->time_out = now()->tz('Asia/Manila');
 
                 $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Manila');
-                $timeOut = now()->tz('Asia/Manila');
+                $timeOut = Carbon::parse($attendance->time_out)->tz('Asia/Manila'); // Ensure both use the same timezone
 
-                // Use diffInHours to get the hour difference
-                $totalHours = $timeIn->diffInHours($timeOut);
+                // Calculate the difference in seconds and convert to hours
+                $totalHours = $timeIn->diffInSeconds($timeOut) / 3600;
 
                 // Update total_hours in the database
                 $attendance->total_hours = $totalHours;
@@ -281,8 +288,12 @@ class AttendanceController extends Controller
                 return response()->json(['message' => 'Time out already recorded for this attendance'], 403);
             }
         }
-
     }
+
+
+
+
+
 
 
 

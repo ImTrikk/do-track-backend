@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('admin_id')->unique()->primary();
             $table->string('first_name', 255);
             $table->string('last_name', 255);
-            $table->string('email', 255);
+            $table->string('email', 255)->unique();
             $table->string('password', 255);
             $table->string('position', 255);
             $table->timestamps();
