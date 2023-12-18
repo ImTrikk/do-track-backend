@@ -33,5 +33,4 @@ class CollegeController extends Controller
             ],
         );
     }
-
 }
