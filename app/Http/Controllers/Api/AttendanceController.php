@@ -367,9 +367,11 @@ class AttendanceController extends Controller
 
         // Query to count attendees with a total_hours condition
         $attendees = DB::table('students')
-            ->select(DB::raw('count(attendances.student_id) as attendees_count'))
+            ->select(DB::raw('count(DISTINCT attendances.student_id) as attendees_count'))
             ->join('attendances', 'attendances.student_id', '=', 'students.student_id')
-            ->where('attendances.total_hours', '>=', 3.00)
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->where('attendances.total_hours', '>=', 3)
+            ->where('programs.program_id', '=', $id)
             ->get();
 
         $program_name = DB::table('students')
