@@ -77,6 +77,7 @@ class AttendanceController extends Controller
                 'attendances.total_hours',
                 'programs.program_id',
                 'programs.program_name',
+                'year_levels.year_level_code',
                 'admins.admin_id',
                 'admins.first_name as admin_first_name',
                 'admins.last_name as admin_last_name',
