@@ -62,6 +62,9 @@ Route::controller(AttendanceController::class)->group(function () {
 
     // delete student attendance record
     Route::delete('/attendance/delete-student-record/{id}', 'deleteStudentAttendanceRecord');
+
+    // api for finding student_id
+    Route::get('/attendance/find-student/{id}', 'findStudentId');
 });
 
 

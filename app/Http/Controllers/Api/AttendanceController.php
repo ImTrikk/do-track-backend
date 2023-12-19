@@ -441,7 +441,46 @@ class AttendanceController extends Controller
             return response()->json(
                 [
                     'status' => 'error', 'message' => 'Record not found'
-                ], 404);
+                ],
+                404
+            );
         }
+    }
+
+    // search student by student_id in attendances table
+    public function findStudentId(string $id)
+    {
+        $response = DB::table('attendances')
+            ->select(
+                'students.first_name as student_first_name',
+                'students.last_name as student_last_name',
+                'students.student_id',
+                'attendances.time_in',
+                'attendances.time_out',
+                'programs.program_id'
+            )
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->where('students.student_id', '=', $id)
+            ->first();
+
+
+        if (empty($response)) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => "Student not found in attendees"
+                ],
+                404,
+            );
+        }
+
+
+        return response()->json(
+            [
+                'data' => $response
+            ],
+            200,
+        );
     }
 }
