@@ -69,17 +69,21 @@ class AttendanceController extends Controller
         // Use DB::table for a query builder instance
         $response = DB::table('attendances')
             ->select(
+                'students.student_id',
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'attendances.time_in',
                 'attendances.time_out',
                 'attendances.total_hours',
+                'programs.program_id',
                 'programs.program_name',
+                'admins.admin_id',
                 'admins.first_name as admin_first_name',
                 'admins.last_name as admin_last_name',
             )
             ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('year_levels', 'year_levels.year_level_code', '=', 'students.year_level_code')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
             ->where('programs.program_id', '=', $id)
             ->get();
