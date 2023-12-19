@@ -457,10 +457,17 @@ class AttendanceController extends Controller
                 'students.student_id',
                 'attendances.time_in',
                 'attendances.time_out',
-                'programs.program_id'
+                'programs.program_id',
+                'year_levels.year_level_code',
+                'attendances.total_hours',
+                'admins.admin_id',
+                'admins.first_name as admin_first_name',
+                'admins.last_name as admin_last_name',
             )
             ->join('students', 'students.student_id', '=', 'attendances.student_id')
             ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
+            ->join('year_levels', 'year_levels.year_level_code', '=', 'students.year_level_code')
             ->where('students.student_id', '=', $id)
             ->first();
 
