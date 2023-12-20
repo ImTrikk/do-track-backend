@@ -25,7 +25,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::delete('/logout', [AuthController::class, 'logout']);
 
     // attendance api routes
     Route::controller(AttendanceController::class)->group(function () {
