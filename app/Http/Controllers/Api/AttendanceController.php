@@ -272,8 +272,8 @@ class AttendanceController extends Controller
             $attendance = Attendances::updateOrCreate(
                 ['admin_id' => $admin_id, 'student_id' => $student_id],
                 [
-                    'time_in' => now()->tz('Asia/Manila')->format('Y-m-d H:i:s'), // Set to Philippine Time
-                    'date' => now()->tz('Asia/Manila')->format('Y-m-d H:i:s'),   // Set
+                    'time_in' => now()->tz('Asia/Singapore', 'UTC')->format('Y-m-d H:i:s'), // Set to Philippine Time
+                    'date' => now()->tz('Asia/Singapore', 'UTC')->format('Y-m-d H:i:s'),   // Set
                     'total_hours' => 0,
                     'required_hours' => 3
                 ] // Set a default value for total_hours
@@ -293,10 +293,10 @@ class AttendanceController extends Controller
             if ($attendance->time_in && is_null($attendance->time_out)) {
                 // Update time_out and calculate total hours
                 // $attendance->time_out = now()->tz('Asia/Manila')->addHours(5)->format('Y-m-d H:i:s');
-                $attendance->time_out = now()->tz('Asia/Manila')->format('Y-m-d H:i:s');
+                $attendance->time_out = now()->tz('Asia/Singapore', 'UTC')->format('Y-m-d H:i:s');
 
-                $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Manila');
-                $timeOut = Carbon::parse($attendance->time_out)->tz('Asia/Manila'); // Ensure both use the same timezone
+                $timeIn = Carbon::parse($attendance->time_in)->tz('Asia/Singapore', 'UTC');
+                $timeOut = Carbon::parse($attendance->time_out)->tz('Asia/Singapore', 'UTC'); // Ensure both use the same timezone
 
                 // Calculate the difference in hours directly
                 $hoursDifference = $timeIn->diffInHours($timeOut);
