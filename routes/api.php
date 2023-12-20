@@ -62,6 +62,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // api for finding student_id
         Route::get('/attendance/find-student/{id}', 'findStudentId');
+
+        // api for deleting attendance record by program
+        Route::delete('/attendance/delete-program-record/{id}', 'deleteAttendanceByProgram');
+
+        // api for deleting attendance record by college
+        Route::delete('/attendance/delete-college-record/{id}', 'deleteAttendanceByCollege');
     });
 
 

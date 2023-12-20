@@ -497,4 +497,55 @@ class AttendanceController extends Controller
             200,
         );
     }
+
+    // delete attendance information using college_id
+    public function deleteAttendanceByCollege(string $id)
+    {
+        $affectedRows = DB::table('attendances')
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
+            ->where('programs.college_id', '=', $id)
+            ->delete();
+
+        if ($affectedRows > 0) {
+            return response()->json(
+                [
+                    'status' => 'College attendance record deleted'
+                ], 200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'error', 'message' => 'Record not found'
+                ],
+                404
+            );
+        }
+    }
+
+    // delete attendance information using program_id
+    public function deleteAttendanceByProgram(string $id)
+    {
+        $affectedRows = DB::table('attendances')
+            ->join('students', 'students.student_id', '=', 'attendances.student_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->where('students.program_id', '=', $id)
+            ->delete();
+
+        if ($affectedRows > 0) {
+            return response()->json(
+                [
+                    'status' => 'Program attendance record deleted'
+                ], 200
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => 'error', 'message' => 'Record not found'
+                ],
+                404
+            );
+        }
+    }
 }
