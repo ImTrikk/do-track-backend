@@ -9,4 +9,8 @@ class Programs extends Model
 {
     protected $primaryKey = 'program_id';
     use HasFactory;
+    public function college()
+    {
+        return $this->belongsTo(College::class);
+    }
 }

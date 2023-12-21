@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Students extends Model
 {
     protected $primaryKey = 'student_id';
-    protected $guarded =[];
+    protected $guarded = [];
     use HasFactory;
+
+    public function program()
+    {
+        return $this->belongsTo(Programs::class);
+    }
 }

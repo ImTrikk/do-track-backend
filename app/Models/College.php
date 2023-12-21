@@ -10,4 +10,9 @@ class College extends Model
 
     protected $primaryKey = 'college_id';
     use HasFactory;
+
+    public function programs()
+    {
+        return $this->hasMany(Programs::class);
+    }
 }

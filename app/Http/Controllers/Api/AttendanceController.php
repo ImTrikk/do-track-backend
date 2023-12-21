@@ -249,18 +249,50 @@ class AttendanceController extends Controller
         $admin_id = $request->admin_id;
         $student_id = $request->student_id;
 
+        $admin_college_id = DB::table('admins')
+            ->select('admins.college_id')
+            ->where('admins.admin_id', '=', $admin_id)
+            ->first();
+
+        $student_college_id = DB::table('students')
+            ->select('colleges.college_id')
+            ->join('programs', 'programs.program_id', '=', 'students.program_id')
+            ->join('colleges', 'colleges.college_id', '=', 'programs.college_id')
+            ->where('students.student_id', '=', $student_id)
+            ->first();
+
+        if ($admin_college_id->college_id !== $student_college_id->college_id) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'No record of student in college'
+                ],
+                404
+            );
+        }
+
         // Check if student_id exists in the students table
         $studentExists = Students::where('student_id', $student_id)->exists();
 
         if (!$studentExists) {
-            return response()->json(['status' => 'error', 'message' => 'Student not found'], 404);
+            return response()->json(
+                [
+                    'status' => 'error', 'message' => 'Student not found'
+                ],
+                404
+            );
         }
 
         // Check if student_id exists in the admins table
         $adminExists = Admins::where('admin_id', $student_id)->exists();
 
         if ($adminExists) {
-            return response()->json(['status' => 'error', 'message' => 'Scanned ID is an admin_id'], 403);
+            return response()->json(
+                [
+                    'status' => 'error', 'message' => 'Scanned ID is an admin_id'
+                ],
+                403
+            );
         }
 
         // Check if time_in is null
@@ -283,10 +315,13 @@ class AttendanceController extends Controller
         } else {
             // Check if the attendance was recorded by another admin
             if ($attendance->admin_id != $admin_id) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Another admin has recorded the student\'s attendance'
-                ], 403);
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'Another admin has recorded the student\'s attendance'
+                    ],
+                    403
+                );
             }
 
             // Logic for recording time_out
@@ -304,9 +339,18 @@ class AttendanceController extends Controller
                 // Update total_hours in the database (using hours as a decimal)
                 $attendance->total_hours = $hoursDifference;
                 $attendance->save();
-                return response()->json(['message' => 'Time out recorded successfully', 'attendance' => $attendance]);
+                return response()->json(
+                    [
+                        'message' => 'Time out recorded successfully', 'attendance' => $attendance
+                    ]
+                );
             } else {
-                return response()->json(['message' => 'Time out already recorded for this attendance'], 403);
+                return response()->json(
+                    [
+                        'message' => 'Time out already recorded for this attendance'
+                    ],
+                    403
+                );
             }
         }
     }
