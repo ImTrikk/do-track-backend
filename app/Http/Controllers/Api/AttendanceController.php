@@ -619,7 +619,7 @@ class AttendanceController extends Controller
             [
                 'status' => 'success',
                 'message' => 'Success updating e-signature of student',
-                'data' => $response
+                'data' => $e_signature
             ],
             200
         );
