@@ -455,7 +455,7 @@ class AttendanceController extends Controller
     // search student by student_id in attendances table
     public function findStudentId($id, Request $request)
     {
-        $admin_id = $request->query('adminId');
+        $college_id = $request->query('collegeId');
 
         $response = DB::table('attendances')
             ->select(
@@ -478,10 +478,8 @@ class AttendanceController extends Controller
             ->join('admins', 'admins.admin_id', '=', 'attendances.admin_id')
             ->join('year_levels', 'year_levels.year_level_code', '=', 'students.year_level_code')
             ->where('students.student_id', '=', $id)
-            ->where('admins.admin_id', '=', $admin_id)
+            ->where('colleges.college_id', '=', $college_id)
             ->first();
-
-
 
         if (empty($response)) {
             return response()->json(
@@ -493,7 +491,6 @@ class AttendanceController extends Controller
             );
         }
 
-
         return response()->json(
             [
                 'data' => $response
@@ -501,6 +498,7 @@ class AttendanceController extends Controller
             200,
         );
     }
+
 
     // delete attendance information using college_id
     public function deleteAttendanceByCollege(string $id)
