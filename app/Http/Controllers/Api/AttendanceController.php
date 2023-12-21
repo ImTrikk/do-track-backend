@@ -594,4 +594,35 @@ class AttendanceController extends Controller
             );
         }
     }
+
+    // api for updating e_signature of students
+    public function updateStudentESignature(string $id, Request $request)
+    {
+
+        $student = Students::where('student_id', $id)->first();
+
+        if (!$student) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Could not update student e-signature'
+                ],
+                404
+            );
+        }
+
+        $e_signature = $request->digital_sig_url;
+
+        $response = $student->update(['digital_sig_url' => $e_signature]);
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'Success updating e-signature of student',
+                'data' => $response
+            ],
+            200
+        );
+    }
+
 }

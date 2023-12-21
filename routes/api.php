@@ -68,6 +68,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         // api for deleting attendance record by college
         Route::delete('/attendance/delete-college-record/{id}', 'deleteAttendanceByCollege');
+
+        // api for handling e-signature of students
+        Route::post('/attendance/signature/{id}', 'updateStudentESignature');
     });
 
 
