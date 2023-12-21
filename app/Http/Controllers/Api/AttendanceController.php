@@ -508,6 +508,7 @@ class AttendanceController extends Controller
                 'students.first_name as student_first_name',
                 'students.last_name as student_last_name',
                 'students.student_id',
+                'students.student_id',
                 'attendances.time_in',
                 'attendances.time_out',
                 'programs.program_name',
