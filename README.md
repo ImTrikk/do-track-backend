@@ -64,3 +64,30 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Entity Relational Diagram 📈
+The Do-Track System incorporates a Normalized Database Model, meticulously designed to guarantee seamless connectivity and relevance across all data elements. Stringent adherence to Normal Forms, ranging from 1NF to 3NF, is upheld to ensure that queried data maintains its integrity by having correspondingly related information from other tables. This robust structure enhances data consistency and facilitates efficient retrieval, contributing to a more cohesive and reliable system.
+
+![image](https://github.com/ImTrikk/do-track-backend/assets/130761529/f2666eea-2ac3-4fc9-a4a7-955ce674b1f4)
+
+Client-Server Architecture Diagram
+Do-Track System implements a seamless Client-Server communication with Representational-State Transfer protocols being implemented. This will ensure that the system performs with its optimal performance with sending and retrieving data from the client up to the database.
+
+![image](https://github.com/ImTrikk/do-track-backend/assets/130761529/707c3c37-4641-4e5f-acb8-40d98720939c)
+
+<b>STEPS TO DOWNLOAD OR CLONE THE REPOSITIRY<b>
+1. Copy and url from here https://github.com/ImTrikk/do-track-backend.git
+2. In your machine, choose a disignated path you want to put the folder
+3. Right click then choose open with terminal.
+4. Type in - git clone https://github.com/ImTrikk/do-track-backend.git
+5. After that, change directory to do-track-backend then type in code . to open the file in vscode.
+6. Open up a terminal in vscode then type in composer install to download all the necessary dependencies
+7. Finally, to run the server type in php artisan serve
+
+//IF ENCOUNTERED ERRORS
+Kindly contact me  - patrickjames.dionen@carsu.edu.ph
+
+//ENVIRONMENT VARIABLE
+Kindly contact me so I can provide assitance  - patrickjames.dionen@carsu.edu.ph
+
+
