@@ -67,12 +67,12 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 
-<h1>Entity Relational Diagram 📈</h1><br>
+<h1>Entity Relational Diagram 📈</h1>
 The Do-Track System incorporates a Normalized Database Model, meticulously designed to guarantee seamless connectivity and relevance across all data elements. Stringent adherence to Normal Forms, ranging from 1NF to 3NF, is upheld to ensure that queried data maintains its integrity by having correspondingly related information from other tables. This robust structure enhances data consistency and facilitates efficient retrieval, contributing to a more cohesive and reliable system.
 
 ![image](https://github.com/ImTrikk/do-track-backend/assets/130761529/f2666eea-2ac3-4fc9-a4a7-955ce674b1f4)
 
-<h1>Client-Server Architecture Diagram</h1><br>
+<h1>Client-Server Architecture Diagram</h1>
 Do-Track System implements a seamless Client-Server communication with Representational-State Transfer protocols being implemented. This will ensure that the system performs with its optimal performance with sending and retrieving data from the client up to the database.
 
 ![image](https://github.com/ImTrikk/do-track-backend/assets/130761529/707c3c37-4641-4e5f-acb8-40d98720939c)
